@@ -17,11 +17,25 @@ function PersonalInfo({formData, setFormData}) {
         setFormData({ ...formData, email: e.target.value});
     }
 
+    const phoneHandler = (e) => {
+        // Remove all non-numeric characters from the input
+        let rawPhoneNumber = e.target.value.replace(/\D/g, '').substring(0, 10);
+
+        // Format the phone number as +1 (234) 567-890
+        // const formattedPhoneNumber = rawPhoneNumber.replace(/^(\d{1})(\d{3})(\d{3})(\d{3})$/, '+$1 $2 $3 $4');
+        
+        // const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{3})(\d{3})(\d{3})/, '+1 ' + '$1 $2 $3')
+        const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '+1 $1 $2 $3').trim();
+
+        // Update the formData state with the formatted phone number
+        setFormData({...formData, phone: formattedPhoneNumber});
+    }
 
     return (
     <div>
         <h1>{formData.name}</h1>
         <h1>{formData.email}</h1>
+        <h1>{formData.phone}</h1>
         <div>
             <h2>Personal info</h2>
             <p>Please provide your name, email address, and phone number</p>
@@ -37,7 +51,7 @@ function PersonalInfo({formData, setFormData}) {
             </div>
             <div>
                 <label htmlFor="">Phone Number <span></span></label>
-                <input type="text" name="" id="" value = {state.email} placeholder='e.g. +1 234 567 890'/>
+                <input type="text" name="" id="" value ={formData.phone} placeholder='e.g. +1 234 567 890' onChange={phoneHandler} maxLength={15}/>
             </div>
         </form>
     </div>

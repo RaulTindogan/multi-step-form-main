@@ -6,7 +6,6 @@ import AddOns from "./components/AddOns";
 import Summary from "./components/Summary";
 
 function App() {
-  const [currentPage, setcurrentPage] = useState(1)
 
   const pages = [
    <PersonalInfo/>,
@@ -14,6 +13,10 @@ function App() {
    <AddOns />,
    <Summary />
   ]
+
+  const [initialState, setinitialState] = useState({
+    currentPage: 1,
+  })
 
   const [personalInfoState,setpersonalInfoState] = useState({
     name: '',
@@ -25,7 +28,9 @@ function App() {
   }) 
 
   const handleSubmit = ()=>{
-    
+    // e.preventDefault()
+    console.log('Form submitted:', personalInfoState);
+    console.log('hello')
   }
 
   
@@ -50,11 +55,13 @@ function App() {
           </aside>
           <section className="bg-White h-[100%] relative">
             {
-              currentPage===1? <PersonalInfo formData={personalInfoState} setFormData={setpersonalInfoState} /> : currentPage===2? <SelectPlan /> : currentPage===3? <AddOns />: <Summary />
+              initialState.currentPage===1? <PersonalInfo formData={personalInfoState} setFormData={setpersonalInfoState} /> : initialState.currentPage===2? <SelectPlan /> : initialState.currentPage===3? <AddOns />: <Summary />
             }
             <footer className="flex justify-between w-full px-5 py-2 absolute bottom-0">
               <button>Go Back</button>
-              <button>Next Step</button>
+              {
+                initialState.currentPage === 1? <button onClick={handleSubmit}>Next Step</button> : initialState.currentPage === 2? <button>Next</button> : <button>Hello</button>
+              }
             </footer>
           </section>
         </main>
