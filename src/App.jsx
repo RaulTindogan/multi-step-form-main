@@ -28,9 +28,19 @@ function App() {
   }) 
 
   const handleSubmit = ()=>{
-    // e.preventDefault()
-    console.log('Form submitted:', personalInfoState);
-    console.log('hello')
+    setinitialState({...personalInfoState, currentPage: 2})
+  }
+
+  const handlePlan = ()=>{
+    setinitialState({...personalInfoState, currentPage: 3})
+  }
+
+  const handleAdd = ()=>{
+    setinitialState({...personalInfoState, currentPage: 4})
+  }
+  
+  const handleSummary = ()=>{
+    setinitialState({...personalInfoState, currentPage: 5})
   }
 
   
@@ -60,7 +70,7 @@ function App() {
             <footer className="flex justify-between w-full px-5 py-2 absolute bottom-0">
               <button>Go Back</button>
               {
-                initialState.currentPage === 1? <button onClick={handleSubmit}>Next Step</button> : initialState.currentPage === 2? <button>Next</button> : <button>Hello</button>
+                initialState.currentPage === 1? <button onClick={handleSubmit}>Next Step</button> : initialState.currentPage === 2? <button onClick={handlePlan}>Next Step</button> : initialState.currentPage === 3? <button onClick={handleAdd}>Summary</button> : <button onClick={handleSummary}>Hello</button>
               }
             </footer>
           </section>

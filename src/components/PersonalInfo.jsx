@@ -25,7 +25,7 @@ function PersonalInfo({formData, setFormData}) {
         // const formattedPhoneNumber = rawPhoneNumber.replace(/^(\d{1})(\d{3})(\d{3})(\d{3})$/, '+$1 $2 $3 $4');
         
         // const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{3})(\d{3})(\d{3})/, '+1 ' + '$1 $2 $3')
-        const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '+1 $1 $2 $3').trim();
+        const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '+1 $1 $2 $3')
 
         // Update the formData state with the formatted phone number
         setFormData({...formData, phone: formattedPhoneNumber});
