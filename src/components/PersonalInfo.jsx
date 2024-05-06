@@ -33,9 +33,6 @@ function PersonalInfo({formData, setFormData}) {
 
     return (
     <div>
-        <h1>{formData.name}</h1>
-        <h1>{formData.email}</h1>
-        <h1>{formData.phone}</h1>
         <div>
             <h2>Personal info</h2>
             <p>Please provide your name, email address, and phone number</p>

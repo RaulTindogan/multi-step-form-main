@@ -18,6 +18,16 @@ function App() {
     currentPage: 1,
   })
 
+  const [planState, setplanState] = useState({
+    id: 1,
+    planIcon: '../assets/icon-arcade.svg',
+    planName: 'Arcade',
+    price: '$9/mo',
+    planType: 'monthly'
+  })
+
+
+
   const [personalInfoState,setpersonalInfoState] = useState({
     name: '',
     email: '',
@@ -46,7 +56,7 @@ function App() {
   
 
   return (  
-    <>
+    <> 
        <main className="h-screen">
           <aside 
             className="
@@ -65,12 +75,24 @@ function App() {
           </aside>
           <section className="bg-White h-[100%] relative">
             {
-              initialState.currentPage===1? <PersonalInfo formData={personalInfoState} setFormData={setpersonalInfoState} /> : initialState.currentPage===2? <SelectPlan /> : initialState.currentPage===3? <AddOns />: <Summary />
+              initialState.currentPage===1
+              ? <PersonalInfo formData={personalInfoState} setFormData={setpersonalInfoState} /> 
+                : initialState.currentPage===2
+                ? <SelectPlan planData={planState} setPlanData={setplanState}/> 
+                  : initialState.currentPage===3
+                  ? <AddOns /> 
+                    : <Summary />
             }
-            <footer className="flex justify-between w-full px-5 py-2 absolute bottom-0">
-              <button>Go Back</button>
+            <footer className={`flex w-full px-5 py-2 absolute bottom-0${initialState.currentPage==1? ' justify-end' : ' justify-between'} `}>
+              {initialState.currentPage > 1 && <button>Go Back</button>}
               {
-                initialState.currentPage === 1? <button onClick={handleSubmit}>Next Step</button> : initialState.currentPage === 2? <button onClick={handlePlan}>Next Step</button> : initialState.currentPage === 3? <button onClick={handleAdd}>Summary</button> : <button onClick={handleSummary}>Hello</button>
+                initialState.currentPage === 1
+                ?<button onClick={handleSubmit}>Next Step</button>
+                :initialState.currentPage === 2
+                  ?<button onClick={handlePlan}>Next Step</button>
+                  :initialState.currentPage === 3
+                    ?<button onClick={handleAdd}>Next Step</button>
+                    :<button onClick={handleSummary}>Confirm</button>
               }
             </footer>
           </section>
