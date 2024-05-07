@@ -16,26 +16,37 @@ function SelectPlan({planData, setPlanData}) {
       planIcon: '../assets/icon-arcade.svg',
       planName: 'Arcade',
       monthlyPrice: '$9/mo',
-      yearlyPrice: '$99/yr'
+      yearlyPrice: '$90/yr',
+      addedMonths: '2 months free',
+      planType: 'monthly'
     },
     {
       id: 2,
       planIcon: '../assets/icon-advanced.svg',
       planName: 'Advanced',
       monthlyPrice: '$12/mo',
-      yearlyPrice: '$132/yr'
+      yearlyPrice: '$120/yr',
+      addedMonths: '2 months free',
+      planType: 'monthly'
     },
     {
       id: 3,
       planIcon: '../assets/icon-pro.svg',
       planName: 'Pro',
       monthlyPrice: '$15/mo',
-      yearlyPrice: '$165/yr'
+      yearlyPrice: '$150/yr',
+      addedMonths: '2 months free',
+      planType: 'monthly'
     }
   ]
 
-  const handleSelectedPlan = (id, icon, name, price) => {
-    setPlanData({...planData, id: id, planIcon: icon, planName: name, planPrice: price})
+  const handleSelectedPlan = (plan) => {
+    let price = ''
+    let planType = ''
+    isToggled?  planType = 'yearly': planType = 'monthly'
+    planType == 'monthly'? price=plan.monthlyPrice : price=plan.yearlyPrice
+
+    setPlanData({...planData, id: plan.id, planIcon: plan.planIcon, planName: plan.planName, planPrice: price, planType: planType})
   }
 
 
@@ -46,6 +57,7 @@ function SelectPlan({planData, setPlanData}) {
         <h1>{planData.planName}</h1>
         <h1>{planData.planIcon}</h1>
         <h1>{planData.planPrice}</h1>
+        <h1>{planData.planType}</h1>
       </div>
       
       <div>
@@ -58,12 +70,13 @@ function SelectPlan({planData, setPlanData}) {
             <div 
               key={plan.id} 
               className={`cursor-pointer ${planData.id == plan.id && ' bg-amber-100'}`}
-              onClick={()=>{handleSelectedPlan(plan.id, plan.planIcon, plan.planName, plan.monthlyPrice)}}
+              onClick={()=>{handleSelectedPlan(plan)}}
             >
               <img src={plan.planIcon} alt="" />
               <p>
                 {plan.planName} 
                 <span>{isToggled? plan.yearlyPrice: plan.monthlyPrice}</span>
+                {isToggled && <span>{plan.addedMonths}</span>}
               </p> 
             </div>
           ))
