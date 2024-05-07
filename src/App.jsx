@@ -26,6 +26,8 @@ function App() {
     planType: 'monthly'
   })
 
+  const [addOns, setaddOns] = useState([])
+
 
 
   const [personalInfoState,setpersonalInfoState] = useState({
@@ -80,8 +82,8 @@ function App() {
                 : initialState.currentPage===2
                 ? <SelectPlan planData={planState} setPlanData={setplanState}/> 
                   : initialState.currentPage===3
-                  ? <AddOns /> 
-                    : <Summary />
+                  ? <AddOns addOnsData={addOns} setaddOnsData={setaddOns} planType={planState.planType}/> 
+                    : <Summary planState={planState} setplanState={setplanState} addOns={addOns} setaddOns={setaddOns}/>
             }
             <footer className={`flex w-full px-5 py-2 absolute bottom-0${initialState.currentPage==1? ' justify-end' : ' justify-between'} `}>
               {initialState.currentPage > 1 && <button>Go Back</button>}
