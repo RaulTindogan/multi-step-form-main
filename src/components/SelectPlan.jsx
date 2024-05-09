@@ -8,6 +8,7 @@ function SelectPlan({planData, setPlanData}) {
   
   const toggleButton = () => {
     setIsToggled(prevState => !prevState);
+    setPlanData({...planData, id: '', planIcon: '', planName: '', planPrice: '', planType: ''})
   }
 
   const plans = [
@@ -15,36 +16,36 @@ function SelectPlan({planData, setPlanData}) {
       id: 1,
       planIcon: '../assets/icon-arcade.svg',
       planName: 'Arcade',
-      monthlyPrice: '$9/mo',
-      yearlyPrice: '$90/yr',
+      monthlyPrice: 9,
+      yearlyPrice: 90,
       addedMonths: '2 months free',
-      planType: 'monthly'
+      planType: 'Monthly'
     },
     {
       id: 2,
       planIcon: '../assets/icon-advanced.svg',
       planName: 'Advanced',
-      monthlyPrice: '$12/mo',
-      yearlyPrice: '$120/yr',
+      monthlyPrice: 12,
+      yearlyPrice: 120,
       addedMonths: '2 months free',
-      planType: 'monthly'
+      planType: 'Monthly'
     },
     {
       id: 3,
       planIcon: '../assets/icon-pro.svg',
       planName: 'Pro',
-      monthlyPrice: '$15/mo',
-      yearlyPrice: '$150/yr',
+      monthlyPrice: 15,
+      yearlyPrice: 150,
       addedMonths: '2 months free',
-      planType: 'monthly'
+      planType: 'Monthly'
     }
   ]
 
   const handleSelectedPlan = (plan) => {
     let price = ''
     let planType = ''
-    isToggled?  planType = 'yearly': planType = 'monthly'
-    planType == 'monthly'? price=plan.monthlyPrice : price=plan.yearlyPrice
+    isToggled?  planType = 'Yearly': planType = 'Monthly'
+    planType == 'Monthly'? price=plan.monthlyPrice : price=plan.yearlyPrice
 
     setPlanData({...planData, id: plan.id, planIcon: plan.planIcon, planName: plan.planName, planPrice: price, planType: planType})
   }

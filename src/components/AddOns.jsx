@@ -6,22 +6,22 @@ function AddOns({addOnsData, setaddOnsData, planType}) {
       id: 1,
       addOnName: 'Online service',
       addOnDescription: 'Access to multiplayer games',
-      monthlyPrice: '+$1/mo',
-      yearlyPrice: '+$10/yr',
+      monthlyPrice: 1,
+      yearlyPrice: 10,
     },
     {
       id: 2,
       addOnName: 'Larger storage',
       addOnDescription: 'Extra 1TB of cloud save',
-      monthlyPrice: '+$2/mo',
-      yearlyPrice: '+$20/yr',
+      monthlyPrice: 2,
+      yearlyPrice: 20,
     },
     {
       id: 3,
       addOnName: 'Customizable profile',
       addOnDescription: 'Custom theme on your profile',
-      monthlyPrice: '+$2/mo',
-      yearlyPrice: '+$20/yr',
+      monthlyPrice: 2,
+      yearlyPrice: 20,
     }
   ]
 
@@ -49,7 +49,7 @@ function AddOns({addOnsData, setaddOnsData, planType}) {
       <div className='bg-[red]'>
         {
           addOnsData.map(addOns=>(
-            <div>
+            <div key={addOns.id}>
               <h1>{addOns.id}</h1>
               <h1>{addOns.addOnName}</h1>
               <h1>{addOns.addOnPrice}</h1>
@@ -71,14 +71,11 @@ function AddOns({addOnsData, setaddOnsData, planType}) {
                 <span className='block'>{addOn.addOnDescription}</span>
               </p>
               <p>
-                {planType==='monthly'? addOn.monthlyPrice : addOn.yearlyPrice}
+                {planType==='Monthly'? addOn.monthlyPrice : addOn.yearlyPrice}
               </p>
             </div>
           ))
         }
-        
-        <div></div>
-        <div></div>
       </div>
     </div>
   )

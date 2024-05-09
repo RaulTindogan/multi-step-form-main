@@ -1,7 +1,11 @@
 import React from 'react'
 
-function Summary({planState, setplanState, addOns, setAddOns}) {
-  console.log(addOns)
+function Summary({planState, setplanState, addOns, setAddOns, initialState, setinitialState}) {
+  const handleChange = () => {
+    console.log('hello')
+    setinitialState({...initialState, currentPage: 2})
+    console.log(initialState.curretPage)
+  }
   return (
     <div>
       <div>
@@ -13,9 +17,12 @@ function Summary({planState, setplanState, addOns, setAddOns}) {
           <div>    
             <p>
               {planState.planName} (Monthly)
-              <span>Change</span>
+              <span
+                className='block text-[red]'
+                onClick={handleChange}
+              >Change</span>
             </p>
-            <p>{planState.price}</p>     
+            <p>{planState.planPrice}</p>     
           </div>
         }       
         {
@@ -29,10 +36,14 @@ function Summary({planState, setplanState, addOns, setAddOns}) {
           ))
         }
         
-        {/* <p>
+        <p>
           Total (per month):
-          <span>+12/mo</span>
-        </p> */}
+          <span>
+            {
+              planState.planPrice + addOns.reduce((sum, addOn) => sum + addOn.addOnPrice, 0)
+            }
+          </span>
+        </p>
       </div>
     </div>
   )

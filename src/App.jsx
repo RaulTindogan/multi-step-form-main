@@ -4,6 +4,7 @@ import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
 import AddOns from "./components/AddOns";
 import Summary from "./components/Summary";
+import Success from "./components/Success";
 
 function App() {
 
@@ -18,17 +19,13 @@ function App() {
     currentPage: 1,
   })
 
-  const [planState, setplanState] = useState({
-    id: 1,
-    planIcon: '../assets/icon-arcade.svg',
-    planName: 'Arcade',
-    price: '$9/mo',
-    planType: 'monthly'
-  })
+  const [planState, setplanState] = useState({})
 
   const [addOns, setaddOns] = useState([])
 
-
+  const handleBack = () => {
+    setinitialState({currentPage: initialState.currentPage - 1})
+  }
 
   const [personalInfoState,setpersonalInfoState] = useState({
     name: '',
@@ -40,19 +37,28 @@ function App() {
   }) 
 
   const handleSubmit = ()=>{
-    setinitialState({...personalInfoState, currentPage: 2})
+    setinitialState({...initialState, currentPage: 2})
   }
 
   const handlePlan = ()=>{
-    setinitialState({...personalInfoState, currentPage: 3})
+    
+    if(Object.keys(planState).length === 0) {
+      alert('hello')
+    } else {
+      setinitialState({...initialState, currentPage: 3})
+    }
   }
 
   const handleAdd = ()=>{
-    setinitialState({...personalInfoState, currentPage: 4})
+    if(Object.keys(addOns).length === 0) {
+      alert('hello')
+    } else {
+      setinitialState({...initialState, currentPage: 4})
+    }
   }
   
   const handleSummary = ()=>{
-    setinitialState({...personalInfoState, currentPage: 5})
+    setinitialState({...initialState, currentPage: 5})
   }
 
   
@@ -83,20 +89,27 @@ function App() {
                 ? <SelectPlan planData={planState} setPlanData={setplanState}/> 
                   : initialState.currentPage===3
                   ? <AddOns addOnsData={addOns} setaddOnsData={setaddOns} planType={planState.planType}/> 
-                    : <Summary planState={planState} setplanState={setplanState} addOns={addOns} setaddOns={setaddOns}/>
+                    : initialState.currentPage === 4
+                    ?<Summary planState={planState} setplanState={setplanState} addOns={addOns} setaddOns={setaddOns} initialState={initialState} setinitialState={setinitialState}/> 
+                      : <Success />
+                    
+
             }
-            <footer className={`flex w-full px-5 py-2 absolute bottom-0${initialState.currentPage==1? ' justify-end' : ' justify-between'} `}>
-              {initialState.currentPage > 1 && <button>Go Back</button>}
-              {
-                initialState.currentPage === 1
-                ?<button onClick={handleSubmit}>Next Step</button>
-                :initialState.currentPage === 2
-                  ?<button onClick={handlePlan}>Next Step</button>
-                  :initialState.currentPage === 3
-                    ?<button onClick={handleAdd}>Next Step</button>
-                    :<button onClick={handleSummary}>Confirm</button>
-              }
-            </footer>
+            {
+              initialState.currentPage <= 4 && 
+              <footer className={`flex w-full px-5 py-2 absolute bottom-0${initialState.currentPage==1? ' justify-end' : ' justify-between'} `}>
+                  {initialState.currentPage > 1 && <button onClick={handleBack}>Go Back</button>}
+                  {
+                    initialState.currentPage === 1
+                    ?<button onClick={handleSubmit}>Next Step</button>
+                    :initialState.currentPage === 2
+                      ?<button onClick={handlePlan}>Next Step</button>
+                      :initialState.currentPage === 3
+                        ?<button onClick={handleAdd}>Next Step</button>
+                        :<button onClick={handleSummary}>Confirm</button>
+                  }
+                </footer>
+            }
           </section>
         </main>
     </>
