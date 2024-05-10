@@ -31,13 +31,39 @@ function App() {
     name: '',
     email: '',
     phone: '',
-    nameError: false,
-    emailError: 0,
-    phoneError: false
+    nameError: null,
+    emailError: null,
+    phoneError: null
   }) 
 
   const handleSubmit = ()=>{
-    setinitialState({...initialState, currentPage: 2})
+    const regex = /^\s*$/
+    const {name, email, phone, nameError, emailError, phoneError} = personalInfoState
+    if(name == '') {
+      setpersonalInfoState({...personalInfoState, nameError: true})
+    } else {
+      setpersonalInfoState({...personalInfoState, nameError: false})
+    } 
+    
+    if (email == '') {
+      setpersonalInfoState({...personalInfoState, emialError: 1})
+    } else {
+      setpersonalInfoState({...personalInfoState, emailError: 0})
+    }
+    
+    if (phone == '') {
+      setpersonalInfoState({...personalInfoState, phoneError: 1})
+    } else {
+      setpersonalInfoState({...personalInfoState, phoneError: 0})
+    }
+    
+    if (nameError == true || emailError > 0 || phoneError > 0){
+      return
+    } else {
+      setinitialState({...initialState, currentPage: 2})
+    }
+    
+    // console.log(personalInfoState.phone.length)
   }
 
   const handlePlan = ()=>{
