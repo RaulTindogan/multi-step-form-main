@@ -2,7 +2,8 @@ import React from 'react'
 
 const errorMessages = [
     'This field is required',
-    'Enter a valid Email'
+    'Enter a valid Email',
+    'Enter a valid phone number'
 ]
 
 function PersonalInfo({formData, setFormData}) {
@@ -61,7 +62,7 @@ function PersonalInfo({formData, setFormData}) {
         </div>
         <form noValidate>
             <div>
-                <label htmlFor="">Name<span>{formData.nameError? 'Name is Empty': ''}</span></label>
+                <label htmlFor="">Name<span>{formData.nameError == true? errorMessages[0]: ''}</span></label>
                 <input 
                     type="text" 
                     name="name" 
@@ -73,7 +74,7 @@ function PersonalInfo({formData, setFormData}) {
                 />
             </div>
             <div>
-                <label htmlFor="">Email Address <span></span></label>
+                <label htmlFor="">Email Address <span>{formData.emailError == 1? errorMessages[0] : formData.emailError == 2? errorMessages[1]: ''}</span></label>
                 <input 
                     type="text" 
                     name="" id="" 
@@ -84,7 +85,7 @@ function PersonalInfo({formData, setFormData}) {
                 />
             </div>
             <div>
-                <label htmlFor="">Phone Number <span></span></label>
+                <label htmlFor="">Phone Number <span>{formData.phoneError == 1? errorMessages[0] : formData.phoneError == 2? errorMessages[2] : ''}</span></label>
                 <input 
                     type="text" 
                     name="" 

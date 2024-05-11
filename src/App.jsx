@@ -33,37 +33,38 @@ function App() {
     phone: '',
     nameError: null,
     emailError: null,
-    phoneError: null
+    phoneError: null 
   }) 
 
   const handleSubmit = ()=>{
     const regex = /^\s*$/
-    const {name, email, phone, nameError, emailError, phoneError} = personalInfoState
-    if(name == '') {
-      setpersonalInfoState({...personalInfoState, nameError: true})
+    // const {name, email, phone} = personalInfoState
+    if(personalInfoState.name == '') {
+      setpersonalInfoState(prevState => ({ ...prevState, nameError: true }));
     } else {
-      setpersonalInfoState({...personalInfoState, nameError: false})
+      setpersonalInfoState(prevState => ({ ...prevState, nameError: false }));
     } 
     
-    if (email == '') {
-      setpersonalInfoState({...personalInfoState, emialError: 1})
+    if (personalInfoState.email == '') {
+      setpersonalInfoState(prevState => ({ ...prevState, emailError: 1 }));
     } else {
-      setpersonalInfoState({...personalInfoState, emailError: 0})
+      setpersonalInfoState(prevState => ({ ...prevState, emailError: 0 }));
     }
     
-    if (phone == '') {
-      setpersonalInfoState({...personalInfoState, phoneError: 1})
+    if (personalInfoState.phone == '') {
+      setpersonalInfoState(prevState => ({ ...prevState, phoneError: 1 }));
+    } else if(phone.length < 14 ) {
+      setpersonalInfoState(prevState => ({ ...prevState, phoneError: 2 }));
     } else {
-      setpersonalInfoState({...personalInfoState, phoneError: 0})
+      setpersonalInfoState(prevState => ({ ...prevState, phoneError: 0 }));
     }
     
-    if (nameError == true || emailError > 0 || phoneError > 0){
-      return
+    if (personalInfoState.nameError == true || personalInfoState.nameError == null || personalInfoState.emailError == null || personalInfoState.emailError > 0 || personalInfoState.phoneError > 0 || personalInfoState.phoneError == null){
+      return 
     } else {
       setinitialState({...initialState, currentPage: 2})
     }
     
-    // console.log(personalInfoState.phone.length)
   }
 
   const handlePlan = ()=>{
