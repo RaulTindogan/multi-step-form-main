@@ -10,12 +10,14 @@ function PersonalInfo({formData, setFormData}) {
 
     const nameHandler = (e)=> {
         const input = e.target.value.replace(/[^A-Za-z\s]/g, '')
-        setFormData({ ...formData, name: input});
+        setFormData(prevState => ({ ...prevState, name: input}))
+        setFormData(prevState => ({ ...prevState, nameError: false}))
     }
 
     const emailHandler = (e)=> {
         // const input = e.target.value.replace(/[^A-Za-z\s]/g, '')
-        setFormData({ ...formData, email: e.target.value});
+        setFormData(prevState => ({ ...prevState, email: e.target.value}))
+        setFormData(prevState => ({ ...prevState, emailError: 0}))
     }
 
     const phoneHandler = (e) => {
@@ -26,7 +28,8 @@ function PersonalInfo({formData, setFormData}) {
         const formattedPhoneNumber = rawPhoneNumber.replace(/(\d{1})(\d{3})(\d{3})(\d{3})/, '+$1 $2 $3 $4')
 
         // Update the formData state with the formatted phone number
-        setFormData({...formData, phone: formattedPhoneNumber});
+        setFormData(prevState => ({...prevState, phone: formattedPhoneNumber}))
+        setFormData(prevState => ({...prevState, phoneError: 0}))
     }
 
     const checkInput = (inputNum) => {
@@ -34,7 +37,7 @@ function PersonalInfo({formData, setFormData}) {
             case 1:
                 if(formData.name == '' ){
                     setFormData({...formData, nameError: true})
-                }
+                } 
                 return 
             case 2: 
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -55,14 +58,22 @@ function PersonalInfo({formData, setFormData}) {
     }
 
     return (
-    <div>
+    <div className='rounded-md p-5 border-[red] border-2 w-[90%] absolute top-[-50px] left-1/2 transform -translate-x-1/2 bg-[white]'>
         <div>
             <h2>Personal info</h2>
             <p>Please provide your name, email address, and phone number</p>
         </div>
         <form noValidate>
             <div>
-                <label htmlFor="">Name<span>{formData.nameError == true? errorMessages[0]: ''}</span></label>
+                <label htmlFor="">
+                    Name
+                    <span>
+                        {
+                            formData.nameError == true? errorMessages[0]
+                            : formData.name !== ''? "": ""
+                        }
+                    </span>
+                </label>
                 <input 
                     type="text" 
                     name="name" 

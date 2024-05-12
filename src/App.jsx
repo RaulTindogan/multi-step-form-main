@@ -118,9 +118,7 @@ function App() {
                   ? <AddOns addOnsData={addOns} setaddOnsData={setaddOns} planType={planState.planType}/> 
                     : initialState.currentPage === 4
                     ?<Summary planState={planState} setplanState={setplanState} addOns={addOns} setaddOns={setaddOns} initialState={initialState} setinitialState={setinitialState}/> 
-                      : <Success />
-                    
-
+                      : <Success />  
             }
             {
               initialState.currentPage <= 4 && 
