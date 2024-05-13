@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AddOns({addOnsData, setaddOnsData, planType}) {
+function AddOns({addOnsData, setaddOnsData, planType, initialState, setinitialState}) {
   const addOns = [
     {
       id: 1,
@@ -35,12 +35,14 @@ function AddOns({addOnsData, setaddOnsData, planType}) {
       const updatedAddOnsData = addOnsData.filter(addOn => addOn.id !== id);
       console.log(updatedAddOnsData)
       setaddOnsData(updatedAddOnsData);
+      setinitialState({...initialState, addOnSelected: true})
     } else {
       // If the add-on doesn't exist, add it to the array
       const price = planType === 'monthly'? monthlyPrice : yearlyPrice
       const info = { id: id, addOnName: name, addOnPrice: price };
       const updatedAddOnsData = [...addOnsData, info];
       setaddOnsData(updatedAddOnsData);
+      setinitialState({...initialState, addOnSelected: false})
     }
   }
 

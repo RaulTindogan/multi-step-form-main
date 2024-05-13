@@ -17,6 +17,9 @@ function App() {
 
   const [initialState, setinitialState] = useState({
     currentPage: 1,
+    personalInfo: null,
+    planSelected: null,
+    addOnSelected: null
   })
 
   const [planState, setplanState] = useState({})
@@ -53,14 +56,14 @@ function App() {
     
     if (personalInfoState.phone == '') {
       setpersonalInfoState(prevState => ({ ...prevState, phoneError: 1 }));
-    } else if(phone.length < 14 ) {
+    } else if(personalInfoState.phone.length < 14 ) {
       setpersonalInfoState(prevState => ({ ...prevState, phoneError: 2 }));
     } else {
       setpersonalInfoState(prevState => ({ ...prevState, phoneError: 0 }));
     }
     
     if (personalInfoState.nameError == true || personalInfoState.nameError == null || personalInfoState.emailError == null || personalInfoState.emailError > 0 || personalInfoState.phoneError > 0 || personalInfoState.phoneError == null){
-      return 
+        
     } else {
       setinitialState({...initialState, currentPage: 2})
     }
@@ -70,25 +73,25 @@ function App() {
   const handlePlan = ()=>{
     
     if(Object.keys(planState).length === 0) {
-      alert('hello')
+      setinitialState(prevState => ({...prevState, planSelected: true}))
     } else {
       setinitialState({...initialState, currentPage: 3})
+      setinitialState(prevState => ({...prevState, planSelected: false}))
     }
   }
 
   const handleAdd = ()=>{
     if(Object.keys(addOns).length === 0) {
-      alert('hello')
+      setinitialState(prevState => ({...prevState, addOnSelected: true}))
     } else {
       setinitialState({...initialState, currentPage: 4})
+      setinitialState(prevState => ({...prevState, addOnSelected: false}))
     }
   }
   
   const handleSummary = ()=>{
     setinitialState({...initialState, currentPage: 5})
   }
-
-  
 
   return (  
     <> 
@@ -103,19 +106,20 @@ function App() {
               gap-3
               bg-[url('./assets/images/bg-sidebar-mobile.svg')] bg-no-repeat bg-cover
             ">
-            <NavButton step={1} stepTitle={"Personal info"}/>
-            <NavButton step={2} stepTitle={"Select Plan"}/>
-            <NavButton step={3} stepTitle={"Add-ons"}/>
-            <NavButton step={4} stepTitle={"Summary"}/>
+            
+            <NavButton step={1} stepTitle={"Personal info"} isActiveClass={initialState.currentPage == 1? ' bg-red-700': ''}/>
+            <NavButton step={2} stepTitle={"Select Plan"} isActiveClass={initialState.currentPage == 2? ' bg-red-700': ''}/>
+            <NavButton step={3} stepTitle={"Add-ons"} isActiveClass={initialState.currentPage == 3? ' bg-red-700': ''}/>
+            <NavButton step={4} stepTitle={"Summary"} isActiveClass={initialState.currentPage == 4? ' bg-red-700': ''}/>
           </aside>
           <section className="bg-White h-[100%] relative">
             {
               initialState.currentPage===1
               ? <PersonalInfo formData={personalInfoState} setFormData={setpersonalInfoState} /> 
                 : initialState.currentPage===2
-                ? <SelectPlan planData={planState} setPlanData={setplanState}/> 
+                ? <SelectPlan planData={planState} setPlanData={setplanState} initialState={initialState} setinitialState={setinitialState}/> 
                   : initialState.currentPage===3
-                  ? <AddOns addOnsData={addOns} setaddOnsData={setaddOns} planType={planState.planType}/> 
+                  ? <AddOns addOnsData={addOns} setaddOnsData={setaddOns} planType={planState.planType} initialState={initialState} setinitialState={setinitialState}/> 
                     : initialState.currentPage === 4
                     ?<Summary planState={planState} setplanState={setplanState} addOns={addOns} setaddOns={setaddOns} initialState={initialState} setinitialState={setinitialState}/> 
                       : <Success />  
@@ -137,6 +141,24 @@ function App() {
             }
           </section>
         </main>
+        <div className={`absolute ${initialState.personalInfo? ' flex': ' hidden'}`}>
+          <p>Please Choose an AddOn</p>
+          <div>
+            <button>OK</button>
+          </div>
+        </div>
+        <div className={`absolute ${initialState.planSelected? ' flex': ' hidden'}`}>
+          <p>Please Choose a Plan</p>
+          <div>
+            <button>OK</button>
+          </div>
+        </div>
+        <div className={`absolute ${initialState.addOnSelected? ' flex': ' hidden'}`}>
+          <p>Please Choose an AddOn</p>
+          <div>
+            <button>OK</button>
+          </div>
+        </div>
     </>
   )
 }

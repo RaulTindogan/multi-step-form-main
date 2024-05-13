@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 
-function SelectPlan({planData, setPlanData}) {
+function SelectPlan({planData, setPlanData, initialState, setinitialState}) {
 
   const [isToggled, setIsToggled] = useState(false);
   // const [selectedPlan, setselectedPlan] = useState(0)
@@ -48,19 +48,12 @@ function SelectPlan({planData, setPlanData}) {
     planType == 'Monthly'? price=plan.monthlyPrice : price=plan.yearlyPrice
 
     setPlanData({...planData, id: plan.id, planIcon: plan.planIcon, planName: plan.planName, planPrice: price, planType: planType})
+    setinitialState({...initialState, planSelected: false})
   }
 
 
   return (
     <div>
-      <div className='bg-[red]'>
-        <h1>{planData.id}</h1>
-        <h1>{planData.planName}</h1>
-        <h1>{planData.planIcon}</h1>
-        <h1>{planData.planPrice}</h1>
-        <h1>{planData.planType}</h1>
-      </div>
-      
       <div>
         <h1>Select your plan</h1>
         <p>You have the option of monthly of yearly billing.</p>
