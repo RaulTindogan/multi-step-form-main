@@ -20,7 +20,7 @@ export default {
         "White": "hsl(0, 0%, 100%)"
       },
       fontFamily: {
-        "Ubuntu": ["Ubuntu", "sans-serif"]
+        "ubuntu": ["ubuntu", "sans-serif"]
       },
     },
   },

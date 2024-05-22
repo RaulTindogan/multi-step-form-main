@@ -58,16 +58,25 @@ function PersonalInfo({formData, setFormData}) {
     }
 
     return (
-    <div className='rounded-md p-5 border-[red] border-2 w-[90%] absolute top-[-50px] left-1/2 transform -translate-x-1/2 bg-[white]'>
-        <div>
-            <h2>Personal info</h2>
-            <p>Please provide your name, email address, and phone number</p>
+    <div className='
+        rounded-md 
+        p-5 
+        w-[90%] max-w-[500px] 
+        mt-[-4rem]
+        mx-auto
+        bg-[white]
+        sm:p-10
+        md:mt-0 md:rounded-none
+    '>
+        <div className='sm:mb-3'>
+            <h2 className='text-Marine-blue text-xl font-[700] sm:text-3xl'>Personal info</h2>
+            <p className='my-3 md:my-5'>Please provide your name, email address, and phone number</p>
         </div>
         <form noValidate>
-            <div>
-                <label htmlFor="">
+            <div className='mb-2 sm:mb-5'>
+                <label htmlFor="" className='text-Marine-blue flex justify-between text-sm sm:text-base md:pb-2'>
                     Name
-                    <span>
+                    <span className='text-Strawberry-red font-[700]'>
                         {
                             formData.nameError == true? errorMessages[0]
                             : formData.name !== ''? "": ""
@@ -78,29 +87,49 @@ function PersonalInfo({formData, setFormData}) {
                     type="text" 
                     name="name" 
                     id="name" 
+                    className='placeholder:text-Cool-gray font-[600] border-[1px] border-Light-gray w-full py-1 px-2 rounded-sm outline-none md:rounded-lg md:px-4 md:py-3'
                     value={formData.name} 
                     placeholder='e.g. Stephen King' 
                     onChange={nameHandler}
                     onBlur={()=>{checkInput(1)}}
                 />
             </div>
-            <div>
-                <label htmlFor="">Email Address <span>{formData.emailError == 1? errorMessages[0] : formData.emailError == 2? errorMessages[1]: ''}</span></label>
+            <div className='mb-2 sm:mb-5'>
+                <label htmlFor="" className='text-Marine-blue flex justify-between text-sm sm:text-base md:pb-2'>
+                    Email Address 
+                    <span className='text-Strawberry-red font-[700]'>
+                        {
+                            formData.emailError == 1? errorMessages[0] : 
+                            formData.emailError == 2? errorMessages[1]: ''
+                        }
+                    </span>
+                </label>
                 <input 
                     type="text" 
-                    name="" id="" 
+                    name="" 
+                    id="" 
+                    className='placeholder:text-Cool-gray font-[600] border-[1px] border-Light-gray w-full py-1 px-2 rounded-sm outline-none md:rounded-lg md:px-4 md:py-3'
                     value = {formData.email} 
                     placeholder='e.g. stephenking@lorem.com' 
                     onChange={emailHandler}
                     onBlur={()=>{checkInput(2)}}
                 />
             </div>
-            <div>
-                <label htmlFor="">Phone Number <span>{formData.phoneError == 1? errorMessages[0] : formData.phoneError == 2? errorMessages[2] : ''}</span></label>
+            <div className='mb-2 sm:mb-5'>
+                <label htmlFor="" className='text-Marine-blue flex justify-between text-sm sm:text-base md:pb-2'>
+                    Phone Number 
+                    <span className='text-Strawberry-red font-[700]'>
+                        {
+                            formData.phoneError == 1? errorMessages[0] : formData.phoneError == 2? 
+                            errorMessages[2] : ''
+                        }
+                    </span>
+                </label>
                 <input 
                     type="text" 
                     name="" 
                     id="" 
+                    className='placeholder:text-Cool-gray font-[600] border-[1px] border-Light-gray w-full py-1 px-2 rounded-sm outline-none md:rounded-lg md:px-4 md:py-3'
                     value ={formData.phone} 
                     placeholder='e.g. +1 234 567 890' 
                     onChange={phoneHandler} 

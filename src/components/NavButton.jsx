@@ -2,11 +2,20 @@ import React from 'react'
 
 function NavButton({step, stepTitle, isActiveClass}) {
   return (
-    <div className={isActiveClass}>
-        <button className='py-1 px-3 border-white border-[1px] rounded-full font-[600]'>{step}</button>
+    <div className='md:flex gap-3'>
+        <button className={`
+            py-1 px-3 
+            border-white border-[1px] rounded-full 
+            font-[600] 
+            ${isActiveClass !== ''? ' text-Marine-blue border-Light-blue': ' border-white'}
+            ${isActiveClass}
+            sm:px-4 sm:py-2 sm:text-md
+            md:px-5
+          `}>{step}
+        </button>
         <p className='hidden md:block'>
-        STEP {step}
-        <span className='uppercase block'>{stepTitle}</span>
+          <span className='text-sm'>STEP {step}</span>
+          <span className='uppercase block font-[600]'>{stepTitle}</span>
         </p>
     </div>
   )
