@@ -24,7 +24,7 @@ function SelectPlan({planData, setPlanData, initialState, setinitialState}) {
   const plans = [
     {
       id: 1,
-      planIcon: 'src/assets/images/icon-arcade.svg',
+      planIcon: 'https://raw.githubusercontent.com/RaulTindogan/multi-step-form-main/24e078b25b0b9fe447547282c5ba4a0f1747d908/src/assets/images/icon-arcade.svg',
       planName: 'Arcade',
       monthlyPrice: 9,
       yearlyPrice: 90,
@@ -33,7 +33,7 @@ function SelectPlan({planData, setPlanData, initialState, setinitialState}) {
     },
     {
       id: 2,
-      planIcon: 'src/assets/images/icon-advanced.svg',
+      planIcon: 'https://raw.githubusercontent.com/RaulTindogan/multi-step-form-main/24e078b25b0b9fe447547282c5ba4a0f1747d908/src/assets/images/icon-advanced.svg',
       planName: 'Advanced',
       monthlyPrice: 12,
       yearlyPrice: 120,
@@ -42,7 +42,7 @@ function SelectPlan({planData, setPlanData, initialState, setinitialState}) {
     },
     {
       id: 3,
-      planIcon: 'src/assets/images/icon-pro.svg',
+      planIcon: 'https://raw.githubusercontent.com/RaulTindogan/multi-step-form-main/24e078b25b0b9fe447547282c5ba4a0f1747d908/src/assets/images/icon-pro.svg',
       planName: 'Pro',
       monthlyPrice: 15,
       yearlyPrice: 150,
@@ -76,26 +76,30 @@ function SelectPlan({planData, setPlanData, initialState, setinitialState}) {
         <p className='my-3 md:my-5'>You have the option of monthly of yearly billing.</p>
       </div>
       <div>
-        {
-          plans.map((plan) =>(
-            <div 
-              key={plan.id} 
-              className={`
-                cursor-pointer ${planData.id == plan.id && 'border-Purplish-blue bg-Alabaster'} 
-                p-2 flex gap-3 border-[1px] border-Light-gray rounded-md my-2 hover:border-Purplish-blue`}
-              onClick={()=>{handleSelectedPlan(plan)}}
-            >
-              <img src={plan.planIcon} alt="" />
-              <p>
-                <span className='text-Marine-blue font-[600]'>
-                  {plan.planName} 
-                </span>
-                <span className='block text-sm text-Cool-gray font-[600]'>${planData.isYearly? plan.yearlyPrice : plan.monthlyPrice}/{planData.isYearly? 'yr' : 'mo'}</span>
-                {planData.isYearly && <span className='block text-Marine-blue font-[600]'>{plan.addedMonths}</span>}
-              </p> 
-            </div>
-          ))
-        }
+        <div className='md:flex md:w-full md:gap-5'>
+          {
+            plans.map((plan) =>(
+              <div 
+                key={plan.id} 
+                className={`
+                  cursor-pointer grow ${planData.id == plan.id && 'border-Purplish-blue bg-Alabaster'} 
+                  p-2 flex gap-3 border-[1px] border-Light-gray rounded-md my-2 hover:border-Purplish-blue
+                  md:flex-col  
+                `}
+                onClick={()=>{handleSelectedPlan(plan)}}
+              >
+                <img src={plan.planIcon} alt="" className='md:size-[50px]'/>
+                <p>
+                  <span className='text-Marine-blue font-[600]'>
+                    {plan.planName} 
+                  </span>
+                  <span className='block text-sm text-Cool-gray font-[600]'>${planData.isYearly? plan.yearlyPrice : plan.monthlyPrice}/{planData.isYearly? 'yr' : 'mo'}</span>
+                  {planData.isYearly && <span className='block text-Marine-blue font-[600]'>{plan.addedMonths}</span>}
+                </p> 
+              </div>
+            ))
+          }
+        </div>
         <div className='flex mt-10 justify-center items-center gap-3'>
           <p className={`${planData.isYearly == false? 'text-Marine-blue font-[700]' : 'text-gray'}`}>Monthly</p>
           <div>
